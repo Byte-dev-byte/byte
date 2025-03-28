@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بايت</title>
+    <style>
+        /* CSS Variables for Themes */
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #00b894;
+            --accent-color: #fd79a8;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --nav-link-color: #636e72;
+            --menu-bg: #ffffff;
+        }
+
+        /* Dark Theme Variables */
+        .dark-mode {
+            --primary-color: #a29bfe;
+            --secondary-color: #55efc4;
+            --accent-color: #ff7675;
+            --text-color: #f5f6fa;
+            --bg-color: #2d3436;
+            --card-bg: #1e272e;
+            --header-bg: #1e272e;
+            --border-color: #3d4a52;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --nav-link-color: #b2bec3;
+            --menu-bg: #1e272e;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        /* Navigation */
+        nav.desktop-nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav.desktop-nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav.desktop-nav ul li a {
+            color: var(--nav-link-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav.desktop-nav ul li a i {
+            font-size: 0.9rem;
+        }
+
+        nav.desktop-nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .active {
+            color: var(--primary-color) !important;
+        }
+
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--nav-link-color);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--menu-bg);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1100;
+            transition: right 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-nav ul li a {
+            color: var(--nav-link-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-nav ul li a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .mobile-nav .close-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--nav-link-color);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Theme Toggle Buttons */
+        .theme-toggle {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 184, 148, 0.1) 100%);
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* About Section */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-item {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-item i {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 5px solid var(--card-bg);
+        }
+
+        /* Games Section */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .game-details {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .game-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .game-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .game-features {
+            margin-bottom: 1.5rem;
+            list-style-position: inside;
+        }
+
+        .game-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .game-features li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .game-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .blog-excerpt {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        /* Downloads Section */
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .download-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .download-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .download-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .download-size {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Store Section */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .store-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .store-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .store-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .store-content {
+            padding: 1.5rem;
+        }
+
+        .store-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .store-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .store-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        /* News Section */
+        .news-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-date {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .news-content {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Forum Section */
+        .forum-intro {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .forum-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+        }
+
+        /* Contact Section */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .contact-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--header-bg);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--nav-link-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--nav-link-color);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--nav-link-color);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            nav.desktop-nav {
+                display: none;
+            }
+            
+            .burger-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* RTL/LTR Styles */
+        [dir="rtl"] {
+            text-align: right;
+        }
+
+        [dir="ltr"] {
+            text-align: left;
+        }
+
+        [dir="rtl"] nav.desktop-nav ul li {
+            margin-right: 1.5rem;
+            margin-left: 0;
+        }
+
+        [dir="ltr"] .mobile-nav {
+            right: auto;
+            left: -100%;
+        }
+
+        [dir="ltr"] .mobile-nav.active {
+            right: auto;
+            left: 0;
+        }
+
+        [dir="rtl"] .close-btn {
+            right: 1rem;
+            left: auto;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Delay for items */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* Icon Font */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span data-lang="logo">بايت</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> <span data-lang="home">الرئيسية</span></a></li>
+                    <li><a href="#projects"><i class="fas fa-project-diagram"></i> <span data-lang="projects">مشاريعي</span></a></li>
+                    <li><a href="#news"><i class="fas fa-newspaper"></i> <span data-lang="news">الأخبار</span></a></li>
+                    <li><a href="#forum"><i class="fas fa-users"></i> <span data-lang="forum">المجتمع</span></a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> <span data-lang="contact">التواصل</span></a></li>
+                </ul>
+            </nav>
+            
+            <div class="theme-toggle">
+                <button id="langToggle" class="btn btn-secondary" data-lang="toggleLang">English</button>
+                <button id="themeToggle" class="btn btn-primary" data-lang="toggleTheme">الوضع الداكن</button>
+            </div>
+            
+            <div class="burger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+     
+    <!-- Mobile Navigation -->
+    <div class="overlay"></div>
+    <nav class="mobile-nav">
+        <div class="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="#home" class="active"><i class="fas fa-home"></i> <span data-lang="home">الرئيسية</span></a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> <span data-lang="projects">مشاريعي</span></a></li>
+            <li><a href="#forum"><i class="fas fa-users"></i> <span data-lang="forum">المجتمع</span></a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> <span data-lang="contact">التواصل</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="hero fade-in">
+            <h1 data-lang="welcome">مرحباً بكم في موقع بايت</h1>
+            <p data-lang="welcomeText">أنا مبرمج ألعاب متخصص في إنشاء تجارب تفاعلية ممتعة وجذابة. هنا يمكنك استكشاف أحدث أعمالي، وتحميل الأدوات والمشاريع التي أشاركها مع المجتمع.</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-primary"><i class="fas fa-gamepad"></i> <span data-lang="viewProjects">عرض المشاريع</span></a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> <span data-lang="contactMe">تواصل معي</span></a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-title">
+                <h2 data-lang="aboutTitle">عني</h2>
+            </div>
+            <div class="about-content fade-in delay-1">
+                <div class="about-text">
+                    <h3 data-lang="whoAmI">من أنا؟</h3>
+                    <p data-lang="aboutText1">أنا حمزة، مبرمج ألعاب محترف مع أكثر من 2 سنوات من الخبرة في تطوير الألعاب المستقلة. تخصصي يشمل تطوير الألعاب ثنائية وثلاثية الأبعاد باستخدام محركات مثل Godot  وScratch.</p>
+                    <p data-lang="aboutText2">أحب إنشاء ألعاب تقدم تجارب فريدة وتترك أثراً لدى اللاعبين. هدفي هو دمج الفن والتقنية لصنع أعمال إبداعية تثير الإعجاب.</p>
+                    <h3 data-lang="skills">المهارات</h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span data-lang="skill1">Godot & Scratch</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-laptop-code"></i>
+                            <span data-lang="skill2">برمجة GDScriptو Python</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-gamepad"></i>
+                            <span data-lang="skill3">تصميم اللعبة وتجربة اللاعب</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="favicon.png" alt="صورة المبرمج" data-lang="devImage" data-lang-alt="Developer Image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="section-title">
+                <h2 data-lang="projectsTitle">مشاريعي</h2>
+            </div>
+            <div class="games-grid">
+                <!-- Game 1 -->
+                <div class="game-card fade-in delay-2">
+                    <img src="assets/img/project/hit.png" class="game-image" alt="صورة اللعبة" data-lang="game1Image" data-lang-alt="Game 1 Image">
+                    <div class="game-details">
+                        <h3 class="game-title" data-lang="game1Title">ضرب أو تفوت</h3>
+                        <div class="game-price" data-lang="game1Price">مجاني</div>
+                        <p class="game-description" data-lang="game1Desc">يجب عليك قتل أي شيء.</p>                       
+                        <div class="game-btns">
+                            <a href="https://byte-deve.itch.io/hit-or-miss" class="btn btn-primary"><i class="fas fa-download"></i> <span data-lang="download">تحميل</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card fade-in delay-3">
+                    <img src="assets/img/project/icon.png" class="game-image" alt="صورة اللعبة" data-lang="game2Image" data-lang-alt="Game 2 Image">
+                    <div class="game-details">
+                        <h3 class="game-title" data-lang="game2Title">اجري اجري اجري</h3>
+                        <div class="game-price" data-lang="game2Price">مجاني</div>
+                        <p class="game-description" data-lang="game2Desc">إنها مجرد لعبة تلعبها بالكرة وتتجنب الحواف.</p>
+                        <div class="game-btns">
+                            <a href="https://byte-deve.itch.io/run-run-run" class="btn btn-primary"><i class="fas fa-download"></i> <span data-lang="download">تحميل</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card fade-in delay-4">
+                    <img src="assets/img/project/icon (2).png" class="game-image" alt="صورة اللعبة" data-lang="game3Image" data-lang-alt="Game 3 Image">
+                    <div class="game-details">
+                        <h3 class="game-title" data-lang="game3Title">سباق الضغط</h3>
+                        <div class="game-price" data-lang="game3Price">مجاني</div>
+                        <p class="game-description" data-lang="game3Desc">هل لديك القدرة على التفوق على منافسك وتحقيق النصر؟ استعد للسباق!.</p>
+                        <div class="game-btns">
+                            <a href="https://byte-deve.itch.io/clicker-race" class="btn btn-primary"><i class="fas fa-download"></i> <span data-lang="download">تحميل</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-card fade-in delay-4">
+                    <img src="assets/img/project/Xolarl.png" class="game-image" alt="صورة اللعبة" data-lang="game3Image" data-lang-alt="Game 3 Image">
+                    <div class="game-details">
+                        <h3 class="game-title" data-lang="game4Title">الشحنةالاخيرة</h3>
+                        <div class="game-price" data-lang="game4Price">مجاني</div>
+                        <p class="game-description" data-lang="game4Desc">قم بنقل الطاقة بين المنصات قبل نفاد الشحن، مع تجنب العوائق!!.</p>
+                        <div class="game-btns">
+                            <a href="https://byte-deve.itch.io/the-last-charge" class="btn btn-primary"><i class="fas fa-download"></i> <span data-lang="download">تحميل</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <div class="section-title">
+                <h2 data-lang="newsTitle">الأخبار والتحديثات</h2>
+            </div>
+            
+            <!-- News Item 1 -->
+            <div class="news-item fade-in delay-2">
+                <div class="news-date" data-lang="news1Date">25 مارس 2025</div>
+                <h3 class="news-title" data-lang="news1Title">لعبة Square War جاية يوم 30/3/2025! 🔥⚔️
+                    استعدوا لمعركة المربعات الأكثر حماسًا! "</h3>
+                <p class="news-content" data-lang="news1Content"> أكشن سريع
+                    🎨 جرافيكس بسيط لكن ممتع
+                    🕹️ تحديات قوية</p>
+                <a href="http://youtube.com/post/UgkxQiccc4gsPpkzdOYDcWPFpeiwGYm0r69o?si=pdvAbek3bTSrfZff" class="btn btn-outline"><i class="fas fa-newspaper"></i> <span data-lang="readMore">قراءة المزيد</span></a>
+            </div>
+            
+            
+        </section>
+
+        <!-- Forum Section -->
+        <section id="forum" class="section">
+            <div class="section-title">
+                <h2 data-lang="forumTitle">المجتمع والمنتدى</h2>
+            </div>
+            
+            <div class="forum-intro fade-in delay-2">
+                <h3 data-lang="forumWelcome">انضم إلى مجتمعنا المتنامي!</h3>
+                <p data-lang="forumIntro">تفاعل مع مطوري الألعاب الآخرين، شارك أفكارك، احصل على المساعدة، وساعد الآخرين في رحلتهم لتطوير الألعاب.</p>
+                <a href="https://discord.gg/sXSQdAAE" class="btn btn-primary"><i class="fas fa-users"></i> <span data-lang="joinCommunity">انضم إلى المجتمع</span></a>
+            </div>
+            
+            <div class="forum-stats">
+                <div class="stat-card fade-in delay-3">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label" data-lang="stat1">عضو في المجتمع</div>
+                </div>
+                <div class="stat-card fade-in delay-4">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label" data-lang="stat2">منشور في المنتدى</div>
+                </div>
+                <div class="stat-card fade-in delay-5">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label" data-lang="stat3">مشروع مشترك</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="section-title">
+                <h2 data-lang="contactTitle">تواصل معنا</h2>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-card fade-in delay-2">
+                    <i class="fas fa-envelope"></i>
+                    <h3 data-lang="email">البريد الإلكتروني</h3>
+                    <a href="mailto:bytedeve@gmail.com">bytedeve@gmail.com</a>
+                </div>
+                <div class="contact-card fade-in delay-3">
+                    <i class="fab fa-discord"></i>
+                    <h3 data-lang="discord">ديسكورد</h3>
+                    <a href="https://discord.gg/sXSQdAAE" data-lang="discordLink">انضم إلى سيرفرنا</a>
+                </div>
+                <div class="contact-card fade-in delay-4">
+                    <i class="fas fa-gamepad"></i>
+                    <h3 data-lang="itch">Itch.io</h3>
+                    <a href="https://byte-deve.itch.io/" target="_blank">byte-deve.itch.io</a>
+                </div>
+                <div class="contact-card fade-in delay-4">
+                    <i class="fas fa-youtube"></i>
+                    <h3 data-lang="Youtube">يوتيوب</h3>
+                    <a href="https://www.youtube.com/@Byte-nk8db" target="_blank">Byte</a>
+                </div>
+            </div>
+            
+            <div class="contact-form fade-in delay-5">
+                <h3 data-lang="sendMessage">أرسل رسالة</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name" data-lang="nameLabel">الاسم</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-lang="emailLabel">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" data-lang="subjectLabel">الموضوع</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-lang="messageLabel">الرسالة</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span data-lang="send">إرسال</span></button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p data-lang="copyright">© 2025 بايت جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Language Toggle Functionality
+        const langToggle = document.getElementById('langToggle');
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const burgerMenu = document.querySelector('.burger-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const overlay = document.querySelector('.overlay');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        // Language Data
+        const translations = {
+            'en': {
+                'logo': 'byte',
+                'home': 'Home',
+                'projects': 'Projects',
+                'news':'News',
+                'forum': 'Community',
+                'contact': 'Contact',
+                'toggleLang': 'العربية',
+                'toggleTheme': 'Dark Mode',
+                'welcome': 'Welcome to byte Portfolio',
+                'welcomeText': 'I am a game developer specialized in creating fun and engaging interactive experiences. Here you can explore my latest works, and download the tools and projects I share with the community.',
+                'viewProjects': 'View Projects',
+                'contactMe': 'Contact Me',
+                'aboutTitle': 'About Me',
+                'whoAmI': 'Who Am I?',
+                'aboutText1': 'I am Hamza, a professional game developer with over 2 years of experience in indie game development. My expertise includes 2D and 3D game development using engines like Godot and Scratch.',
+                'aboutText2': 'I love creating games that offer unique experiences and leave an impact on players. My goal is to merge art and technology to make creative works that impress.',
+                'skills': 'Skills',
+                'skill1': 'Godot & Scratch',
+                'skill2': 'GDScript & Python Programming',
+                'skill3': 'Game Design & Player Experience',
+                'devImage': 'Developer Photo',
+                'projectsTitle': 'My Projects',
+                'game1Title': 'Hit or miss',
+                'game1Price': 'Free',
+                'game1Desc': 'you must kill any thing.',
+                'game2Title': 'Run run run',
+                'game2Price': 'Free',
+                'game2Desc': "it's just a game that you play with ball and avoid the edges.",
+                'game3Title': 'Clicker Race',
+                'game3Price': 'Free',
+                'game3Desc': 'Do you have what it takes to outpace your rival and claim victory? Get ready to race!.',
+                'game4Title': 'The last charge',
+                'game4Price': 'Free',
+                'game4Desc': 'Transfer energy between platforms before running out of charge, while avoiding obstacles!',
+                'download': 'Download',
+                'readMore': 'Read more',
+                'newsTitle': 'News & Updates',
+                'news1Date': 'march 25, 2025',
+                'news1Title': 'Square War is coming on March 30, 2025! 🔥⚔️Get ready for the most exciting square battle! 🟥🆚🟦',
+                'news1Content': 'Fast action 🎨 Simple but fun graphics🕹️ Tough challenges.',
+                'forumTitle': 'Community & Forum',
+                'forumWelcome': 'Join Our Growing Community!',
+                'forumIntro': 'Interact with other game developers, share your ideas, get help, and help others in their game development journey.',
+                'joinCommunity': 'Join Community',
+                'stat1': 'Community Members',
+                'stat2': 'Forum Posts',
+                'stat3': 'Collaborative Projects',
+                'contactTitle': 'Contact Us',
+                'email': 'Email',
+                'discord': 'Discord',
+                'discordLink': 'Join Our Server',
+                'itch': 'Itch.io',
+                'Youtube': 'Youtube',
+                'sendMessage': 'Send a Message',
+                'nameLabel': 'Name',
+                'emailLabel': 'Email',
+                'subjectLabel': 'Subject',
+                'messageLabel': 'Message',
+                'send': 'Send',
+                'copyright': '© 2025 Byte. All rights reserved.'
+            },
+            'ar': {
+                'logo': 'بايت',
+                'home': 'الرئيسية',
+                'projects': 'مشاريعي',
+                'news': 'الأخبار',
+                'forum': 'المجتمع',
+                'contact': 'التواصل',
+                'toggleLang': 'English',
+                'toggleTheme': 'الوضع الداكن',
+                'welcome': 'مرحباً بكم في موقع بايت',
+                'welcomeText': 'أنا مبرمج ألعاب متخصص في إنشاء تجارب تفاعلية ممتعة وجذابة. هنا يمكنك استكشاف أحدث أعمالي، وتحميل الأدوات والمشاريع التي أشاركها مع المجتمع.',
+                'viewProjects': 'عرض المشاريع',
+                'contactMe': 'تواصل معي',
+                'aboutTitle': 'عني',
+                'whoAmI': 'من أنا؟',
+                'aboutText1': 'أنا حمزة، مبرمج ألعاب محترف مع أكثر من 2 سنوات من الخبرة في تطوير الألعاب المستقلة. تخصصي يشمل تطوير الألعاب ثنائية وثلاثية الأبعاد باستخدام محركات مثل.',
+                'aboutText2': 'أحب إنشاء ألعاب تقدم تجارب فريدة وتترك أثراً لدى اللاعبين. هدفي هو دمج الفن والتقنية لصنع أعمال إبداعية تثير الإعجاب.',
+                'skills': 'المهارات',
+                'skill1': 'Godot & Scratch',
+                'skill2': 'برمجة GDScriptو Python',
+                'skill3': 'تصميم اللعبة وتجربة اللاعب',
+                'skill4': 'الرسومات ثلاثية الأبعاد والرسوم المتحركة',
+                'devImage': 'صورة المبرمج',
+                'projectsTitle': 'مشاريعي',
+                'game1Title': 'ضرب أو تفوت',
+                'game1Price': 'مجاني',
+                'game1Desc': 'يجب عليك قتل أي شيء.',
+                'game2Title': 'اجري اجري اجري',
+                'game2Price': 'مجاني',
+                'game2Desc': 'إنها مجرد لعبة تلعبها بالكرة وتتجنب الحواف..',
+                'game3Title': 'سباق الضغط',
+                'game3Price': 'مجاني',
+                'game3Desc': 'هل لديك القدرة على التفوق على منافسك وتحقيق النصر؟ استعد للسباق!',
+                'download': 'تحميل',
+                'game4Title': 'الشحنة الاخيرة',
+                'game4Price': 'مجاني',
+                'game4Desc': 'قم بنقل الطاقة بين المنصات قبل نفاد الشحن، مع تجنب العوائق!',
+                'download': 'تحميل',
+                'details': 'تفاصيل',
+                'readMore':'قراءة المزيد',
+                'newsTitle': 'الأخبار والتحديثات',
+                'news1Date': '25 مارس 2025',
+                'news1Title': 'لعبة Square War جاية يوم 30/3/2025! 🔥⚔️ استعدوا لمعركة المربعات الأكثر حماسًا!',
+                'news1Content': 'أكشن سريع 🎨 جرافيكس بسيط لكن ممتع 🕹️ تحديات قوية.',
+                'forumTitle': 'المجتمع والمنتدى',
+                'forumWelcome': 'انضم إلى مجتمعنا المتنامي!',
+                'forumIntro': 'تفاعل مع مطوري الألعاب الآخرين، شارك أفكارك، احصل على المساعدة، وساعد الآخرين في رحلتهم لتطوير الألعاب.',
+                'joinCommunity': 'انضم إلى المجتمع',
+                'stat1': 'عضو في المجتمع',
+                'stat2': 'منشور في المنتدى',
+                'stat3': 'مشروع مشترك',
+                'contactTitle': 'تواصل معنا',
+                'email': 'البريد الإلكتروني',
+                'discord': 'ديسكورد',
+                'discordLink': 'انضم إلى سيرفرنا',
+                'itch': 'Itch.io',
+                'Youtube': 'يوتيوب',
+                'sendMessage': 'أرسل رسالة',
+                'nameLabel': 'الاسم',
+                'emailLabel': 'البريد الإلكتروني',
+                'subjectLabel': 'الموضوع',
+                'messageLabel': 'الرسالة',
+                'send': 'إرسال',
+                'copyright': '© 2025 بايت. جميع الحقوق محفوظة.'
+            }
+        };
+
+        // Current language
+        let currentLang = 'ar';
+        
+        // Theme state
+        let darkMode = false;
+
+        // Toggle Language
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            
+            // Update HTML direction
+            htmlElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlElement.setAttribute('lang', currentLang);
+            
+            // Update button text
+            langToggle.textContent = translations[currentLang]['toggleLang'];
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[currentLang][key]) {
+                    if (element.hasAttribute('data-lang-alt') && element.tagName === 'IMG') {
+                        element.setAttribute('alt', translations[currentLang][key]);
+                    } else {
+                        element.textContent = translations[currentLang][key];
+                    }
+                }
+            });
+        });
+
+        // Toggle Theme
+        themeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = translations[currentLang]['toggleTheme'] === 'الوضع الداكن' ? 'الوضع الفاتح' : 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeToggle.textContent = translations[currentLang]['toggleTheme'];
+            }
+        });
+
+        // Burger Menu Toggle
+        burgerMenu.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close Mobile Menu
+        closeBtn.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        function closeMobileMenu() {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                closeMobileMenu();
+                
+                // Remove active class from all links
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Scroll to section
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Set active nav link based on scroll position
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+            
+            // Show/hide back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (scrollPosition > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+
+        // Back to top button
+        document.querySelector('.back-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Add fade-in animation when elements come into view
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
